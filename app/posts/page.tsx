@@ -7,7 +7,9 @@ type Post = {
 }
 
 async function getPosts() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=3"
+  );
   const data = await res.json();
   console.log(data)
   return data as Post[];
