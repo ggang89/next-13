@@ -1,18 +1,25 @@
 import Link from "next/link";
 
-async function getPost() {
-  const res = await fetch('http://127.0.0.1:8090/api/collections/posts/records');
+type Post = {
+  id: number;
+  title: string;
+  body: string;
+}
+
+async function getPosts() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const data = await res.json();
-  return data?.items as any[];
+  console.log(data)
+  return data as Post[];
 }
 
 
 const Postpage = async() => {
-  const posts = await getPost();
+  const posts = await getPosts();
   
   return <div>
     <h1>Posts</h1>
-    {posts?.map((post) => {
+    {posts.map((post:Post) => {
       return <PostItem key={post.id} post={post } />
     })}
   </div>;
@@ -20,14 +27,14 @@ const Postpage = async() => {
 
 export default Postpage;
 
-const PostItem = ({ post }: any) => { 
-  const { id, title, updated } = post || {};
+const PostItem = ({ post }) => {
+  const { id, title, body } = post || {};
   return (
     <Link href={`/posts/${id}`}>
       <div>
         <h3>{title}</h3>
-        <p>{updated}</p>
+        <p>{body}</p>
       </div>
     </Link>
   );
-}
+};
