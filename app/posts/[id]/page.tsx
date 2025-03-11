@@ -1,3 +1,5 @@
+import { Post } from "../page";
+
 async function getPost(postId: number) {
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}`,
@@ -6,8 +8,8 @@ async function getPost(postId: number) {
   const data = await res.json();
   return data;
  }
-
-const PostDetailPage = async ({ params }) => {
+const PostDetailPage = async({ params }: {params:Post}) => {
+  console.log("params", params);
   const post =await getPost(params.id);
   return <div>
     <h1>posts/{post.id}</h1>

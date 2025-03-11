@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-type Post = {
+export type Post = {
   id: number;
   title: string;
   body: string;
@@ -29,8 +29,8 @@ const Postpage = async() => {
 
 export default Postpage;
 
-const PostItem = ({ post }) => {
-  const { id, title, body } = post || {};
+const PostItem = ({post}: {post: Post}) => {
+  const { id, title, body } = post ;
   return (
     <Link href={`/posts/${id}`}>
       <div>
